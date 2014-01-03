@@ -1,0 +1,8 @@
+---
+- name: save iptables
+  sudo: true
+  shell: iptables-save > /etc/iptables.up.rules
+
+- name: reload iptables
+  sudo: true
+  shell: iptables-restore < /etc/iptables.up.rules

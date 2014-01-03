@@ -1,0 +1,25 @@
+---
+- name: ensure iptables are loaded on boot
+  sudo: true
+  copy: >
+    dest=/etc/network/if-pre-up.d/iptables
+    src=iptables
+    owner=root
+    group=root
+    mode=755
+
+#- name: ensure iptables file exists
+#  sudo: true
+#  shell: >
+#    iptables-save > /etc/iptables.up.rules
+
+- name: enable ip packet forwarding permanently
+  sudo: true
+  lineinfile: dest=/etc/sysctl.conf regexp='#?net.ipv4.ip_forward=.*' line='net.ipv4.ip_forward=1' state=present
+  register: result
+
+- name: enable ip packet forwarding for current session
+  sudo: true
+  shell: echo 1 > /proc/sys/net/ipv4/ip_forward
+  when: result|changed
+
