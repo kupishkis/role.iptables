@@ -2,3 +2,6 @@
 if [[ -f /etc/iftables.up.rules ]]; then
   /sbin/iptables-restore < /etc/iptables.up.rules
 fi
+
+exit 0
+

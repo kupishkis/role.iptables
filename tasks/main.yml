@@ -1,12 +1,16 @@
 ---
-- name: ensure iptables are loaded on boot
+- name: ensure iptables are loaded on boot (step 1)
   sudo: true
   copy: >
-    dest=/etc/network/if-pre-up.d/iptables
+    dest=/etc/init.d/iptables
     src=iptables
     owner=root
     group=root
     mode=755
+
+- name: ensure iptables are loaded on boot (step 2)
+  sudo: true
+  shell: update-rc.d iptables defaults
 
 #- name: ensure iptables file exists
 #  sudo: true
