@@ -1,21 +1,7 @@
 ---
-- name: ensure iptables are loaded on boot (step 1)
+- name: ensure iptables can be loaded properly
   sudo: true
-  copy: >
-    dest=/etc/init.d/iptables
-    src=iptables
-    owner=root
-    group=root
-    mode=755
-
-- name: ensure iptables are loaded on boot (step 2)
-  sudo: true
-  shell: update-rc.d iptables defaults
-
-#- name: ensure iptables file exists
-#  sudo: true
-#  shell: >
-#    iptables-save > /etc/iptables.up.rules
+  apt: pkg=iptables-persistent
 
 - name: enable ip packet forwarding permanently
   sudo: true

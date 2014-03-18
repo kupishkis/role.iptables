@@ -1,8 +1,8 @@
 ---
 - name: save iptables
   sudo: true
-  shell: iptables-save > /etc/iptables.up.rules
+  shell: service iptables-persistent save
 
 - name: reload iptables
   sudo: true
-  shell: iptables-restore < /etc/iptables.up.rules
+  shell: service iptables-persistent reload
